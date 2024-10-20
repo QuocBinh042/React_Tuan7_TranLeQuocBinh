@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Screen1({ navigation }) {
     const users = [
-        { email: "user1@example.com", password: "password1" },
+        { email: "user1@gmail.com", password: "password1" },
         { email: "user2@example.com", password: "password2" },
         { email: "user3@example.com", password: "password3" },
         { email: "user4@example.com", password: "password4" },
@@ -14,7 +14,7 @@ export default function Screen1({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const handleLogin = () => {
         const user = users.find(
             (user) => user.email === email && user.password === password
@@ -63,10 +63,18 @@ export default function Screen1({ navigation }) {
                     style={styles.input}
                     placeholder="Enter your password"
                     value={password}
-                    secureTextEntry={true}
-                    
+                    secureTextEntry={!isPasswordVisible}                    
                     onChangeText={setPassword}
                 />
+                <TouchableOpacity
+                        onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                        style={styles.eyeIconContainer}
+                    >
+                        <Image
+                            source={require('../assets/Data/eye.png')}
+                            style={styles.eyeIcon}
+                        />
+                    </TouchableOpacity>
             </View>
             {/* Nút Quên mật khẩu */}
             <TouchableOpacity onPress={() => Alert.alert('Forgot Password clicked')} style={styles.forgotPasswordContainer}>
